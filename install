@@ -10,3 +10,4 @@ string='#! /bin/bash \nbase="'${base}'"\ntimeout='${timeout}'\n'
 echo -e $string > "$HOME/.config/autostart/wpchg"
 cat wpchg >> "$HOME/.config/autostart/wpchg"
 chmod +x $HOME/.config/autostart/wpchg
+$HOME/.config/autostart/wpchg &
