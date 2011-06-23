@@ -1,0 +1,12 @@
+/*Dhananjay Sathe : dhananjaysathe@gmail.com
+http://dsathe.blogspot.com/
+*/
+#! /bin/bash
+echo "Enter The required time period in seconds :"
+read timeout
+echo -e "Enter the location of the desired pictures folder \n eg : /home/user/Pictures\n"
+read base
+string='#! /bin/bash \nbase="'${base}'"\ntimeout='${timeout}'\n'
+echo -e $string > "$HOME/.config/autostart/wpchg"
+cat wpchg >> "$HOME/.config/autostart/wpchg"
+chmod +x $HOME/.config/autostart/wpchg

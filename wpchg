@@ -1,0 +1,15 @@
+/*Dhananjay Sathe : dhananjaysathe@gmail.com
+http://dsathe.blogspot.com/
+*/
+#base=""  # Your folder containing the wallapers ( Images only )
+#timeout=300 #set as required in seconds 
+
+
+while true; do
+cd $base
+photo=$(ls | while read x; do echo "`expr $RANDOM % 1000`:$x"; done \
+     | sort -n| sed 's/[0-9]*://' | head -1)
+uri="file://"$base"/"$photo
+gsettings set org.gnome.desktop.background picture-uri $uri
+sleep $timeout
+done
