@@ -1,6 +1,6 @@
-/*Dhananjay Sathe : dhananjaysathe@gmail.com
-http://dsathe.blogspot.com/
-*/
+#Dhananjay Sathe : dhananjaysathe@gmail.com
+#http://dsathe.blogspot.com/
+
 #! /bin/bash
 echo "Enter The required time period in seconds :"
 read timeout
