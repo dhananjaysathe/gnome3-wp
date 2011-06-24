@@ -1,0 +1,6 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Encoding=UTF-8
+Name=wp-show
+Exec=$HOME/.wp-show/wp-show
