@@ -8,11 +8,15 @@ enabled=$3
 depth=$4
 
 string='#! /bin/bash \nbase="'${base}'"\ntimeout='${timeout}'\nenabled='${enabled}'\ndepth='${depth}'\n'
-mkdir $HOME/.wp-show
+dir=$HOME/.wp-show
+if [[ ! -e $dir ]]; then
+    mkdir $dir
+fi
 echo $string > "$HOME/.wp-show/wp-show"
 cat wp-show >> "$HOME/.wp-show/wp-show"
 if $enabled
 then
+killall -9 wp-show
 chmod a+x $HOME/.wp-show/wp-show
 $HOME/.wp-show/wp-show &
 cp wp-show.desktop $HOME/.config/autostart/wp-show.desktop
