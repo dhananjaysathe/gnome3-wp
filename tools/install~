@@ -10,12 +10,12 @@ enabled=$3
 depth=$4
 
 string='#! /bin/bash \nbase="'${base}'"\ntimeout='${timeout}'\nenabled='${enabled}'\ndepth='${depth}'\n'
-
+echo -e $string
 dir=$HOME/.wp-show
 if [[ ! -e $dir ]]; then
     mkdir $dir
 fi
-echo -e $string > "$HOME/.wp-show/wp-show"
+echo $string > "$HOME/.wp-show/wp-show"
 cat wp-show >> "$HOME/.wp-show/wp-show"
 if $enabled
 then
