@@ -116,8 +116,7 @@ class wp_show_conf():
 
 
         window.show_all()
-        print window.get_size()
-
+        
 
 
 def main():

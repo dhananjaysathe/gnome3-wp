@@ -1,0 +1,29 @@
+Features :
+
+    Lets you choose the folder via a browser.
+    Lets you set the timeout in seconds.
+    Lets you chose depth of subdirectory .
+    You can enable or disable it with a single click .
+    Full-feature tooltips
+
+Instructions :
+
+    git clone git://gitorious.org/gnome-3-wp/gnome-3-wp.git
+    run wp-show
+    You are ready to go.
+
+EDIT : Major Update :
+
+    Autostart Fixed
+    GUI completely revamped (more in-line with  HIG) 
+    defaults to /home
+    packaging cleanup all backup files placed in tools 
+    Top level executable 'RUNME' renamed to wp-show 
+    icon updated
+    icon for program now fixed
+
+Dhananjay Sathe
+dhananjaysathe@gmail.com
+http://dsathe.blogspot.com
+
+
