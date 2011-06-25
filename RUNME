@@ -16,7 +16,7 @@ class wp_show_conf():
         timeout = self.spin_button.get_value_as_int()
         enabled = str(self.check.get_active()).lower()
         depth = self.depth_select.get_value_as_int()
-        request='./install '+path+' '+str(timeout)+' '+enabled+' '+str(depth)
+        request='tools/install '+path+' '+str(timeout)+' '+enabled+' '+str(depth)
         os.system(request)
 
     def __init__(self):
@@ -30,7 +30,7 @@ class wp_show_conf():
         vbox.show()
         
         artwork = gtk.VBox()
-        fileimage = 'artwork.png'
+        fileimage = 'tools/artwork.png'
         image = gtk.Image()
         image.set_from_file(fileimage)
         artwork.pack_start(image, True, True, 0)
@@ -48,7 +48,7 @@ class wp_show_conf():
         label.show()
 
         self.filechooserbutton = gtk.FileChooserButton('Browse')
-        self.filechooserbutton.set_current_folder('~/Pictures')
+        self.filechooserbutton.set_current_folder('/etc/home')
         self.filechooserbutton.set_tooltip_text('Browse to the folder containing your wallpapers')
         table.attach(self.filechooserbutton, 1, 2, 0, 1, gtk.FILL,gtk.FILL | gtk.EXPAND, 0, 0)
         self.filechooserbutton.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
