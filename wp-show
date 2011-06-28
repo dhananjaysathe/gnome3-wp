@@ -40,9 +40,8 @@ class wp_show_conf():
 			self.timeout = int(data[1].strip('\n'))
 			self.enabled = (data[2].strip('\n')) == 'true'
 			self.depth = int(data[3].strip('\n'))
-			print self.enabled
-			print data[2].strip('\n')
 			f.close()
+		
 		else : # returs defaults
 			self.path = os.path.expanduser('~')
 			self.timeout = 100
