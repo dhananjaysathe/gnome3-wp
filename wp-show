@@ -15,16 +15,17 @@ class wp_show_conf():
         self.get_fields()
         optsfile =  os.path.join(os.path.expanduser('~'), '.wp-show', 'opts')
         f = open(optsfile,'w')
-        data ='\n'.join([self.path,str(self.timeout), self.enabled, 
+        # Multiply timeout by 60 to convert into seconds.
+        data = '\n'.join([self.path, str(self.timeout * 60), self.enabled, 
             str(self.depth)])
         f.write(data)
         f.close()
 
 
     def get_fields(self):
-        """ Gets the fields.. """
+        """ Gets the fields. """
         self.path = self.filechooserbutton.get_filename()
-        self.timeout = self.spin_button.get_value_as_int() / 60 # sec to min
+        self.timeout = self.spin_button.get_value_as_int() * 60 # min to sec
         self.enabled = str(self.check.get_active()).lower()
         self.depth = self.depth_select.get_value_as_int()
 
@@ -53,8 +54,7 @@ class wp_show_conf():
         """ Save the options. """
 
         self.get_fields()
-        # Multiply timeout by 60 to convert into seconds.
-        request=' '.join(['tools/install', self.path, str(self.timeout * 60), 
+        request=' '.join(['tools/install', self.path, str(self.timeout), 
             self.enabled,str(self.depth)])
         os.system(request)
         self.saveopts()
