@@ -15,8 +15,7 @@ class wp_show_conf():
         self.get_fields()
         optsfile =  os.path.join(os.path.expanduser('~'), '.wp-show', 'opts')
         f = open(optsfile,'w')
-        # Multiply timeout by 60 to convert into seconds.
-        data = '\n'.join([self.path, str(self.timeout * 60), self.enabled, 
+        data = '\n'.join([self.path, str(self.timeout), self.enabled, 
             str(self.depth)])
         f.write(data)
         f.close()
@@ -38,7 +37,7 @@ class wp_show_conf():
             f = open(optsfile,'r')
             data = f.readlines()
             self.path = data[0].strip('\n')
-            self.timeout = int(data[1].strip('\n'))
+            self.timeout = int(data[1].strip('\n')) / 60 # sec to min
             self.enabled = (data[2].strip('\n')) == 'true'
             self.depth = int(data[3].strip('\n'))
             f.close()
