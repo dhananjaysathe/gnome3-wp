@@ -44,7 +44,7 @@ class wp_show_conf():
         
         else : # returns defaults
             self.path = os.path.expanduser('~')
-            self.timeout = 600 # Changed default to 10 minutes.
+            self.timeout = 10 # Changed default to 10 minutes.
             self.enabled = True
             self.depth = 3
 
@@ -109,14 +109,14 @@ class wp_show_conf():
             gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
 
         # Timeout
-        label = gtk.Label('Timeout (seconds):  ')
+        label = gtk.Label('Timeout (minutes):  ')
         label.set_alignment(0, 0.5)
         table.attach(label, 0, 1, 1, 2, gtk.FILL,gtk.FILL | gtk.EXPAND, 0, 0)
 
-        adjustment = gtk.Adjustment(self.timeout, 10, 86400, 10, 60)
+        adjustment = gtk.Adjustment(self.timeout, 1, 1440, 5, 15)
         self.spin_button = gtk.SpinButton(adjustment)
         self.spin_button.set_numeric(True)
-        self.spin_button.set_tooltip_text('Time between switch in seconds.')
+        self.spin_button.set_tooltip_text('Time between switch in minutes.')
         table.attach(self.spin_button, 1, 2, 1, 2, gtk.FILL, gtk.FILL | \
             gtk.EXPAND, 0, 0)
 
