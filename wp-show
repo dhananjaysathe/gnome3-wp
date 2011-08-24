@@ -129,7 +129,7 @@ class wp_show_conf():
         adjustment1 = gtk.Adjustment(self.depth, 1, 10, 1, 1)
         self.depth_select = gtk.SpinButton(adjustment1)
         self.depth_select.set_numeric(True)
-        self.depth_select.set_tooltip_text('Level to which the'
+        self.depth_select.set_tooltip_text('Level to which the '
                                            'subdirectory must be scanned.')
         table.attach(self.depth_select, 1, 2, 2, 3, gtk.FILL, gtk.FILL | \
             gtk.EXPAND, 0, 0)
