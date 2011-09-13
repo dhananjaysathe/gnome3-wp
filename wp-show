@@ -1,5 +1,7 @@
 #!/usr/bin/env python2
 
+import gi
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 import os
 
@@ -153,6 +155,7 @@ class wp_show_conf():
         button = Gtk.Button(stock=Gtk.STOCK_CLOSE)
         button.connect("clicked", lambda w: Gtk.main_quit())
         hbox.pack_start(button, False, True, 0)
+        button.set_can_default(True)
         button.grab_default()
 
         button = Gtk.Button(stock=Gtk.STOCK_APPLY)
