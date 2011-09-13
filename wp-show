@@ -1,7 +1,6 @@
 #!/usr/bin/env python2
 
-import gtk
-import gobject
+from gi.repository import Gtk
 import os
 
 # Modified by ianonavy. 24 August 2011
@@ -60,108 +59,111 @@ class wp_show_conf():
 
 
     def __init__(self):
-        """ Main GTK window definitions."""
+        """ Main Gtk window definitions."""
 
         ROOT = os.path.dirname(os.path.realpath(__file__))
 
         # Create a new window.
-        window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+        window = Gtk.Window()
         window.set_title("Gnome 3 Wallpaper Slideshow")
-        window.connect("delete_event", lambda w,e: gtk.main_quit())
+        window.connect("delete_event", lambda w,e: Gtk.main_quit())
         window.set_border_width(5)
         window.set_default_size(282, 342)
 
         self.retrieve_fields()
 
-        vbox = gtk.VBox(False,3)
+        vbox = Gtk.VBox()
+        vbox.set_homogeneous(False)
+        vbox.set_spacing(3)
         window.add(vbox)
 
         # Retrieve and set the artwork.
-        artwork = gtk.VBox()
+        artwork = Gtk.VBox()
         fileimage = os.path.join(ROOT, 'tools/artwork.png')
         window.set_icon_from_file(fileimage)
-        image = gtk.Image()
+        image = Gtk.Image()
         image.set_from_file(fileimage)
         artwork.pack_start(image, True, True, 0)
         vbox.pack_start(artwork, True, True, 1)
 
-        frame = gtk.Frame()
+        frame = Gtk.Frame()
         vbox.pack_start(frame, True, True, 1)
         frame.set_border_width(5)
 
-        table = gtk.Table(4, 2)
+        table = Gtk.Table(4, 2)
         table.set_border_width(3)
         table.set_row_spacings(4)
         table.set_col_spacings(6)
 
         # Wallpaper directory
-        label = gtk.Label('Wallpaper Directory: ')
+        label = Gtk.Label('Wallpaper Directory: ')
         label.set_alignment(0, 0.5)
-        table.attach(label, 0, 1, 0, 1, gtk.FILL, gtk.FILL | gtk.EXPAND, 0, 0)
+        table.attach_defaults(label, 0, 1, 0, 1)
         frame.add(table)
 
-        self.filechooserbutton = gtk.FileChooserButton('Browse')
+        self.filechooserbutton = Gtk.FileChooserButton()
         self.filechooserbutton.set_current_folder(self.path)
         self.filechooserbutton.set_tooltip_text('Browse to the folder '
                                                 'containing your wallpapers.')
-        table.attach(self.filechooserbutton, 1, 2, 0, 1, gtk.FILL, gtk.FILL | \
-            gtk.EXPAND, 0, 0)
+        table.attach_defaults(self.filechooserbutton, 1, 2, 0, 1)
         self.filechooserbutton.set_action(
-            gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
+            Gtk.FileChooserAction(2))
 
         # Timeout
-        label = gtk.Label('Timeout (minutes):  ')
+        label = Gtk.Label('Timeout (minutes):  ')
         label.set_alignment(0, 0.5)
-        table.attach(label, 0, 1, 1, 2, gtk.FILL,gtk.FILL | gtk.EXPAND, 0, 0)
+        table.attach_defaults(label, 0, 1, 1, 2)
 
-        adjustment = gtk.Adjustment(self.timeout, 1, 1440, 5, 15)
-        self.spin_button = gtk.SpinButton(adjustment)
+        adjustment = Gtk.Adjustment(self.timeout, 1, 1440, 5, 15)
+        self.spin_button = Gtk.SpinButton()
+        self.spin_button.set_adjustment(adjustment)
         self.spin_button.set_numeric(True)
         self.spin_button.set_tooltip_text('Time between switch in minutes.')
-        table.attach(self.spin_button, 1, 2, 1, 2, gtk.FILL, gtk.FILL | \
-            gtk.EXPAND, 0, 0)
+        table.attach_defaults(self.spin_button, 1, 2, 1, 2)
 
         # Directory depth
-        label = gtk.Label('Directory Depth : ')
+        label = Gtk.Label('Directory Depth : ')
         label.set_alignment(0, 0.5)
-        table.attach(label, 0, 1, 2, 3, gtk.FILL,gtk.FILL | gtk.EXPAND, 0, 0)
+        table.attach_defaults(label, 0, 1, 2, 3)
 
-        adjustment1 = gtk.Adjustment(self.depth, 1, 10, 1, 1)
-        self.depth_select = gtk.SpinButton(adjustment1)
+        adjustment1 = Gtk.Adjustment(self.depth, 1, 10, 1, 1)
+        self.depth_select = Gtk.SpinButton()
+        self.depth_select.set_adjustment(adjustment)
         self.depth_select.set_numeric(True)
         self.depth_select.set_tooltip_text('Level to which the '
                                            'subdirectory must be scanned.')
-        table.attach(self.depth_select, 1, 2, 2, 3, gtk.FILL, gtk.FILL | \
-            gtk.EXPAND, 0, 0)
+        table.attach_defaults(self.depth_select, 1, 2, 2, 3)
 
         # Enabled checkbox
-        label = gtk.Label('Enabled? ')
+        label = Gtk.Label('Enabled? ')
         label.set_alignment(0, 0.5)
-        table.attach(label, 0, 1, 3, 4, gtk.FILL,gtk.FILL | gtk.EXPAND, 0, 0)
+        table.attach_defaults(label, 0, 1, 3, 4)
 
-        self.check = gtk.CheckButton()
+        self.check = Gtk.CheckButton()
         self.check.set_tooltip_text('Enable or disable the slideshow.')
         self.check.set_active(self.enabled)
-        table.attach(self.check, 1, 2, 3, 4,gtk.SHRINK,gtk.FILL, 0, 0)
+        table.attach(self.check, 1, 2, 3, 4,Gtk.AttachOptions(2),Gtk.AttachOptions(1), 0, 0)
 
-        frame = gtk.Frame()
-        hbox = gtk.HBox(True)
+        frame = Gtk.Frame()
+        hbox = Gtk.HBox()
+        hbox.set_homogeneous(True)
         frame.add(hbox)
         vbox.pack_start(frame, False, True, 0)
 
-        button = gtk.Button(stock=gtk.STOCK_CLOSE)
-        button.connect("clicked", lambda w: gtk.main_quit())
+        button = Gtk.Button(stock=Gtk.STOCK_CLOSE)
+        button.connect("clicked", lambda w: Gtk.main_quit())
         hbox.pack_start(button, False, True, 0)
-        button.set_flags(gtk.CAN_DEFAULT)
         button.grab_default()
 
-        button = gtk.Button(stock=gtk.STOCK_APPLY)
+        button = Gtk.Button(stock=Gtk.STOCK_APPLY)
         button.connect("clicked", self.setit,None)
         hbox.pack_start(button, False, True, 0)
 
         # Developer credit.
-        frame = gtk.Frame ('Developed By: ')
-        label = gtk.Label('Dhananjay Sathe : dhananjaysathe@gmail.com\n'
+        frame = Gtk.Frame ()
+        frame.set_shadow_type(Gtk.ShadowType(2))
+        frame.set_label('Developed By: ')
+        label = Gtk.Label('Dhananjay Sathe : dhananjaysathe@gmail.com\n'
                           'Ian Adam Naval: ianonavy@gmail.com')
         label.set_alignment(0.4, 0.1)
         frame.add(label)
@@ -171,7 +173,7 @@ class wp_show_conf():
 
 
 def main():
-    gtk.main()
+    Gtk.main()
     return 0
 
 
