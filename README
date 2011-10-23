@@ -1,3 +1,5 @@
+Depends :
+    python bindings for gobject/gobject-introspection, gtk
 Features :
 
     Lets you choose the folder via a browser.
@@ -8,6 +10,11 @@ Features :
 
 Instructions :
 
+    Please make sure you have the depends installed pygobject (on 
+debian/ubuntu) or equivalents and gobject introspection bindings 
+installed.
+    
+    Grab the Sources :
     git clone git://gitorious.org/gnome-3-wp/gnome-3-wp.git
     run wp-show
     You are ready to go.
