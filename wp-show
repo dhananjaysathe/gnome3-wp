@@ -13,7 +13,6 @@ class wp_show_conf():
     def saveopts (self):
         """ Saves options to state file in home directory. """
         
-        self.get_fields()
         optsfile =  os.path.join(os.path.expanduser('~'), '.wp-show', 'opts')
         f = open(optsfile,'w')
         data = '\n'.join([self.path, str(self.timeout), self.enabled, 
@@ -54,10 +53,11 @@ class wp_show_conf():
         """ Save the options. """
 
         self.get_fields()
+        self.saveopts()        
         request=' '.join(['tools/install', self.path, str(self.timeout), 
             self.enabled,str(self.depth)])
         os.system(request)
-        self.saveopts()
+        
 
 
     def __init__(self):
