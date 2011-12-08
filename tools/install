@@ -4,14 +4,15 @@
 
 cd tools
 pwd
-base=$1
-timeout=$2
-enabled=$3
-depth=$4
+timeout=$1
+enabled=$2
+depth=$3
+shift;shift;shift
+base=$@
 
 string='#! /bin/bash \nbase="'${base}'"\ntimeout='${timeout}'\nenabled='${enabled}'\ndepth='${depth}'\n'
 
-dir=$HOME/.wp-show
+dir="$HOME/.wp-show"
 if [[ ! -e $dir ]]; then
     mkdir $dir
 fi
