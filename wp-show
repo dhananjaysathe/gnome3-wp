@@ -7,58 +7,56 @@ import os
 
 # Modified by ianonavy. 24 August 2011
 
+
 class wp_show_conf():
     """ Main class file. """
 
-    def saveopts (self):
+    def saveopts(self):
         """ Saves options to state file in home directory. """
-        
-        optsfile =  os.path.join(os.path.expanduser('~'), '.wp-show', 'opts')
-        f = open(optsfile,'w')
-        data = '\n'.join([self.path, str(self.timeout), self.enabled, 
-            str(self.depth)])
+
+        optsfile = os.path.join(os.path.expanduser('~'), '.wp-show', 'opts')
+        f = open(optsfile, 'w')
+        data = '\n'.join([self.path, str(self.timeout), self.enabled,
+                            str(self.depth)])
         f.write(data)
         f.close()
 
-
     def get_fields(self):
         """ Gets the fields. """
+
         self.path = self.filechooserbutton.get_filename()
-        self.timeout = self.spin_button.get_value_as_int() * 60 # min to sec
+        self.timeout = self.spin_button.get_value_as_int() * 60  # min to sec
         self.enabled = str(self.check.get_active()).lower()
         self.depth = self.depth_select.get_value_as_int()
 
-
-    def retrieve_fields (self):
+    def retrieve_fields(self):
         """ Retrieves the fields from the option file. """
-        optsfile =  os.path.join(os.path.expanduser('~'), '.wp-show', 'opts')
+
+        optsfile = os.path.join(os.path.expanduser('~'), '.wp-show', 'opts')
 
         if os.path.exists(optsfile):
-            f = open(optsfile,'r')
+            f = open(optsfile, 'r')
             data = f.readlines()
             self.path = data[0].strip('\n')
-            self.timeout = int(data[1].strip('\n')) / 60 # sec to min
+            self.timeout = int(data[1].strip('\n')) / 60  # sec to min
             self.enabled = (data[2].strip('\n')) == 'true'
             self.depth = int(data[3].strip('\n'))
             f.close()
-        
-        else : # returns defaults
+
+        else:  # returns defaults
             self.path = os.path.expanduser('~')
-            self.timeout = 10 # Changed default to 10 minutes.
+            self.timeout = 10  # Changed default to 10 minutes.
             self.enabled = True
             self.depth = 3
 
-
-    def setit(self,widget,dummy):
+    def setit(self, widget, dummy):
         """ Save the options. """
 
         self.get_fields()
-        self.saveopts()        
-        request=' '.join(['tools/install', self.path, str(self.timeout), 
-            self.enabled,str(self.depth)])
+        self.saveopts()
+        request = ' '.join(['tools/install', self.path, str(self.timeout),
+                             self.enabled, str(self.depth)])
         os.system(request)
-        
-
 
     def __init__(self):
         """ Main Gtk window definitions."""
@@ -68,7 +66,7 @@ class wp_show_conf():
         # Create a new window.
         window = Gtk.Window()
         window.set_title("Gnome 3 Wp-Show")
-        window.connect("delete_event", lambda w,e: Gtk.main_quit())
+        window.connect("delete_event", lambda w, e: Gtk.main_quit())
         window.set_border_width(5)
         window.set_default_size(282, 342)
 
@@ -144,7 +142,8 @@ class wp_show_conf():
         self.check = Gtk.CheckButton()
         self.check.set_tooltip_text('Enable or disable the slideshow.')
         self.check.set_active(self.enabled)
-        table.attach(self.check, 1, 2, 3, 4,Gtk.AttachOptions(2),Gtk.AttachOptions(1), 0, 0)
+        table.attach(self.check, 1, 2, 3, 4, Gtk.AttachOptions(2),
+                         Gtk.AttachOptions(1), 0, 0)
 
         frame = Gtk.Frame()
         hbox = Gtk.HBox()
@@ -159,11 +158,11 @@ class wp_show_conf():
         button.grab_default()
 
         button = Gtk.Button(stock=Gtk.STOCK_APPLY)
-        button.connect("clicked", self.setit,None)
+        button.connect("clicked", self.setit, None)
         hbox.pack_start(button, False, True, 0)
 
         # Developer credit.
-        frame = Gtk.Frame ()
+        frame = Gtk.Frame()
         frame.set_shadow_type(Gtk.ShadowType(2))
         frame.set_label('Developed By: ')
         label = Gtk.Label('Dhananjay Sathe : dhananjaysathe@gmail.com\n'
