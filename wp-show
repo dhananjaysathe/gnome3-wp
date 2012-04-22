@@ -14,7 +14,12 @@ class wp_show_conf():
     def saveopts(self):
         """ Saves options to state file in home directory. """
 
+        optsdir = os.path.join(os.path.expanduser('~'), '.wp-show')
         optsfile = os.path.join(os.path.expanduser('~'), '.wp-show', 'opts')
+
+        if not os.path.exists(optsdir):
+            os.makedirs(optsdir)
+
         f = open(optsfile, 'w')
         data = '\n'.join([self.path, str(self.timeout), self.enabled,
                             str(self.depth)])
