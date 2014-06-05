@@ -2,6 +2,11 @@
 #Dhananjay Sathe : dhananjaysathe@gmail.com
 #http://dsathe.blogspot.com/
 
+print_msg()
+{
+	echo "wp-show: " $1
+}
+
 cd tools
 timeout=$1
 enabled=$2
@@ -18,17 +23,21 @@ fi
 echo -e $string > "$HOME/.wp-show/wp-show"
 cat wp-show >> "$HOME/.wp-show/wp-show"
 if $enabled
-then
-killall -9 wp-show
-chmod a+x $HOME/.wp-show/wp-show
-$HOME/.wp-show/wp-show &
-cp wp-show.desktop $HOME/.config/autostart/wp-show.desktop
-string2=Exec=$HOME/.wp-show/wp-show
-echo $string2 >>"$HOME/.config/autostart/wp-show.desktop"
-echo 
-else 
-chmod -x $HOME/.wp-show/wp-show
-killall -9 wp-show
-rm $HOME/.wp-show/wp-show
-rm $HOME/.config/autostart/wp-show.desktop
+ 	then
+		print_msg "Enabling wp-show."
+		print_msg "Killing GUI."
+		killall -9 wp-show
+		chmod a+x $HOME/.wp-show/wp-show
+		$HOME/.wp-show/wp-show &
+		cp wp-show.desktop $HOME/.config/autostart/wp-show.desktop
+		string2=Exec=$HOME/.wp-show/wp-show
+		echo $string2 >>"$HOME/.config/autostart/wp-show.desktop"
+	else 
+		print_msg "Disabling wp-show."
+		chmod -x $HOME/.wp-show/wp-show
+		print_msg "Killing GUI."
+		killall -9 wp-show
+		rm $HOME/.wp-show/wp-show
+		rm $HOME/.config/autostart/wp-show.desktop
+		print_msg "Done."
 fi
