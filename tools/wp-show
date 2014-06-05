@@ -6,9 +6,9 @@
 #depth=10 # set as required
 
 while true; do
-photo=$(find "$base" -maxdepth $depth -iregex ".*\(jpg\|jpeg\|gif\|png\|bmp\)$" -type f | sort -R | head -1)
+photo=$(find "$base" -maxdepth $depth -iregex ".*\(jpg\|jpeg\|gif\|png\|bmp\)$" -type f | shuf -n1)
 uri="file://$photo"
-gsettings set org.gnome.desktop.background picture-uri "$uri"
+DISPLAY=:0 GSETTINGS_BACKEND=dconf gsettings set org.gnome.desktop.background picture-uri "$uri"
 sleep $timeout
 done
 

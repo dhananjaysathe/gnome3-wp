@@ -3,7 +3,6 @@
 #http://dsathe.blogspot.com/
 
 cd tools
-pwd
 timeout=$1
 enabled=$2
 depth=$3

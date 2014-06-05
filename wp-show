@@ -59,8 +59,8 @@ class wp_show_conf():
 
         self.get_fields()
         self.saveopts()
-        request = ' '.join(['tools/install', self.path, str(self.timeout),
-                             self.enabled, str(self.depth)])
+        request = ' '.join(['tools/install', str(self.timeout),
+                             self.enabled, str(self.depth), self.path])
         os.system(request)
 
     def __init__(self):
